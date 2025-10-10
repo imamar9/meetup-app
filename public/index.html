@@ -2,19 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
-      content="Web site created using create-react-app"
+      content="Meetup Events - Discover and join amazing events"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+      body { background-color: #f8f9fa; }
+      .meetup-logo { font-size: 2rem; font-weight: 700; color: #e91e63 !important; font-family: 'Brush Script MT', cursive; font-style: italic; text-decoration: none; }
+      .navbar { background-color: #ffffff !important; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+      .event-card { transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; border-radius: 16px; overflow: hidden; background: white; height: 100%; }
+      .event-card:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(0,0,0,0.15) !important; }
+      .event-card-image { height: 240px; object-fit: cover; width: 100%; transition: transform 0.3s ease; }
+      .event-card:hover .event-card-image { transform: scale(1.05); }
+      .event-type-badge { background-color: white !important; color: #212529 !important; border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.15); padding: 0 !important; border-radius: 8px; overflow: hidden; font-weight: 600; font-size: 0.875rem; display: inline-flex !important; align-items: center; gap: 0; }
+      .badge-indicator { width: 4px; height: 100%; min-height: 32px; display: inline-block; }
+      .badge-text { padding: 0.5rem 0.75rem; display: inline-block; }
+      .event-title { font-size: 1.375rem; line-height: 1.3; color: #212529; font-weight: 700; }
+      .event-date-time { font-size: 0.875rem; color: #6c757d; font-weight: 400; }
+      .btn-danger { background-color: #ff5a5f; border-color: #ff5a5f; font-weight: 600; padding: 0.75rem 1.5rem; }
+      .btn-danger:hover:not(:disabled) { background-color: #e04e52; border-color: #e04e52; }
+      .btn-danger:disabled { background-color: #ff5a5f; border-color: #ff5a5f; opacity: 0.6; }
+      .shadow-sm { box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important; }
+      @media (max-width: 991px) { .sticky-top { position: relative !important; top: 0 !important; margin-top: 2rem; } }
+      @media (max-width: 767px) { .meetup-logo { font-size: 1.5rem; } .event-card-image { height: 180px; } }
+    </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -24,7 +39,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Meetup Events</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

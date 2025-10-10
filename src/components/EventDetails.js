@@ -1,15 +1,21 @@
-// src/EventDetails.js
-import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { getEventById } from './data';
-import { Container, Row, Col, Card, Badge, Button } from 'react-bootstrap';
+import useFetch from '../hooks/useFetch';
+import moment from 'moment';
 
 const EventDetails = () => {
-    const { eventId } = useParams();
-    const event = useMemo(() => getEventById(eventId), [eventId]);
+    const { id } = useParams();
+    const { data: event, loading, error } = useFetch(`http://localhost:5000/api/events/${id}`, null);
+
+    if (loading) {
+        return <h2 className="text-center mt-5">Loading event details...</h2>;
+    }
+
+    if (error) {
+        return <h2 className="text-center mt-5 text-danger">Error: {error}</h2>;
+    }
 
     if (!event) {
-        return <h2 className="text-center mt-5">Event Not Found</h2>;
+        return <h2 className="text-center mt-5">Event not found</h2>;
     }
 
     const {
@@ -17,90 +23,117 @@ const EventDetails = () => {
         venue, sessionTiming, speakers
     } = event;
     
-    // Simple path for the image - assuming images are in public/images
-    const imageUrl = image.startsWith('/images') ? image : `/images/${image}`;
+    const imageUrl = image;
     
-    // Format session timing
-    const [datePart, timePart] = sessionTiming.split(' at ');
-    const [startTime, endTime] = timePart.split(' to ').map(t => t.trim().replace(/AM|PM|IST/g, '').trim());
+    const timingParts = sessionTiming.split(' to ');
+    const startPart = timingParts[0]; 
+    const endPart = timingParts[1]; 
+    
+    const eventDate = moment(event.date).format('ddd MMM DD YYYY');
+    const startTime = startPart.split(' at ')[1]; 
+    const endTime = endPart ? endPart.split(' at ')[1] : ''; 
 
     return (
-        <Container className="my-5">
-            <h1 className="mb-4">{title}</h1>
-            <Row>
-                {/* Main Content Column */}
-                <Col lg={8}>
-                    <Card className="mb-4 shadow-sm">
-                        <Card.Img variant="top" src={imageUrl} alt={title} style={{ maxHeight: '400px', objectFit: 'cover' }} />
-                        <Card.Body>
-                            <h2 className="h4 mb-3">Details:</h2>
-                            <p>{description}</p>
-                            
-                            <h3 className="h5 mt-4">Additional Information:</h3>
-                            <ul>
-                                <li><strong>Dress Code:</strong> {additionalInfo.dressCode}</li>
-                                <li><strong>Age Restrictions:</strong> {additionalInfo.ageRestrictions}</li>
-                            </ul>
-                            
-                            <h3 className="h5 mt-4">Event Tags:</h3>
-                            <div className="d-flex flex-wrap">
-                                {tags.map(tag => (
-                                    <Badge key={tag} bg="danger" className="me-2 mb-2 p-2">{tag}</Badge>
-                                ))}
+        <div className="container my-5">
+            <div className="row">
+                <div className="col-lg-7">
+                    <h1 className="mb-3 fw-bold">{title}</h1>
+                    <p className="mb-4">
+                        Hosted By:<br />
+                        <strong>{hostedBy}</strong>
+                    </p>
+                    
+                    <div className="card mb-4 border-0 shadow-sm">
+                        <img 
+                            src={imageUrl} 
+                            alt={title}
+                            className="card-img-top"
+                            style={{ maxHeight: '400px', objectFit: 'cover' }}
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <h2 className="h4 fw-bold mb-3">Details:</h2>
+                        <p>{description}</p>
+                    </div>
+
+                    <div className="mb-4">
+                        <h3 className="h5 fw-bold mb-3">Additional Information:</h3>
+                        <p className="mb-2"><strong>Dress Code:</strong> {additionalInfo.dressCode}</p>
+                        <p className="mb-0"><strong>Age Restrictions:</strong> {additionalInfo.ageRestrictions}</p>
+                    </div>
+
+                    <div className="mb-5">
+                        <h3 className="h5 fw-bold mb-3">Event Tags:</h3>
+                        <div className="d-flex flex-wrap gap-2">
+                            {tags.map(tag => (
+                                <span key={tag} className="badge bg-danger  px-3 py-2 rounded">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-lg-5">
+                    <div className="card border-0 shadow-sm p-4 mb-4" style={{ position: 'sticky', top: '20px' }}>
+                        <div className="mb-3 pb-3 border-bottom">
+                            <div className="d-flex align-items-start mb-3">
+                                <i className="bi bi-clock me-3 fs-5"></i>
+                                <div>
+                                    <p className="mb-0">{eventDate} at {startTime} to</p>
+                                    <p className="mb-0">{eventDate} at {endTime}</p>
+                                </div>
                             </div>
-                        </Card.Body>
-                    </Card>
-
-                    <h2 className="h4 mb-3">Speakers ({speakers.length}):</h2>
-                    <Row>
-                        {speakers.map((speaker, index) => (
-                            <Col md={6} key={index} className="mb-3">
-                                <Card className="text-center p-3 h-100">
-                                    <div className="d-flex justify-content-center">
-                                        {/* Placeholder for speaker image */}
-                                        <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#f0f0f0', overflow: 'hidden' }} className="mb-2">
-                                            {/* In a real app, you'd use speaker.image */}
-                                        </div>
-                                    </div>
-                                    
-                                    <h5 className="mb-0">{speaker.name}</h5>
-                                    <p className="text-muted small">{speaker.title}</p>
-                                </Card>
-                            </Col>
-                        ))}
-                    </Row>
-                </Col>
-
-                {/* Sidebar/Info Column */}
-                <Col lg={4}>
-                    <Card className="p-3 shadow">
-                        <p className="text-muted small mb-1">Hosted By:</p>
-                        <h4 className="h6 mb-3">{hostedBy}</h4>
-                        
-                        <div className="mb-3">
-                            {/* Time/Date */}
-                            <p className="mb-1"><i className="bi bi-calendar-event me-2"></i> <strong>Date:</strong> {datePart}</p>
-                            <p className="mb-1"><i className="bi bi-clock me-2"></i> <strong>Time:</strong> {startTime} - {endTime}</p>
                             
-                            {/* Location */}
-                            <p className="mb-1"><i className="bi bi-geo-alt me-2"></i> <strong>Venue:</strong> {venue}</p>
+                            <div className="d-flex align-items-start mb-3">
+                                <i className="bi bi-geo-alt me-3 fs-5"></i>
+                                <div>
+                                    <p className="mb-0">{venue.split(',')[0]}</p>
+                                    <p className="mb-0">{venue.split(',')[1]}</p>
+                                </div>
+                            </div>
+                            
+                            <div className="d-flex align-items-center">
+                                <i className="bi bi-currency-rupee me-3 fs-5"></i>
+                                <p className="mb-0  fs-5">
+                                    {isPaid ? price.toLocaleString() : 'Free'}
+                                </p>
+                            </div>
                         </div>
-                        
-                        {/* Price */}
-                        <div className="mb-3 border-top pt-3">
-                            <h5 className="mb-0">
-                                {isPaid ? `₹${price.toLocaleString()}` : 'Free Event'}
-                            </h5>
-                        </div>
+                    </div>
 
-                        {/* RSVP Button - Note: RSVP functionality is not implemented as requested */}
-                        <Button variant="danger" className="w-100 mt-2" disabled>
-                            RSVP (Not required for assignment)
-                        </Button>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+                    <div className="mb-4">
+                        <h2 className="h5 fw-bold mb-3">Speakers: ({speakers.length})</h2>
+                        <div className="row g-3">
+                            {speakers.map((speaker, index) => (
+                                <div className="col-6" key={index}>
+                                    <div className="card text-center border-0 shadow-sm p-3">
+                                        <div className="mx-auto mb-2">
+                                            <img 
+                                                src={speaker.image || `https://i.pravatar.cc/150?img=${index + 1}`} 
+                                                alt={speaker.name}
+                                                className="rounded-circle"
+                                                style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+                                            />
+                                        </div>
+                                        <h6 className="mb-1 fw-bold">{speaker.name}</h6>
+                                        <p className="mb-0">{speaker.title}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className='justify-content-center d-flex'>
+                    <button 
+                        className="btn btn-danger w-50 rounded"
+                    >
+                        RSVP
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 };
 

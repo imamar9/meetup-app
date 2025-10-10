@@ -1,42 +1,36 @@
-// src/EventCard.js
-import React from 'react';
-import { Card, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 const EventCard = ({ event }) => {
-    // Simple path for the image - assuming images are in public/images
-    const imageUrl = event.image.startsWith('/images') ? event.image : `/images/${event.image}`;
+    const imageUrl = event.image;
 
     return (
-        <Card className="h-100 shadow-sm event-card">
-            <div style={{ maxHeight: '200px', overflow: 'hidden' }}>
-                {/* Use the event image from the mock data, but you'll need to place actual images in public/images */}
-                <Card.Img 
-                    variant="top" 
-                    src={imageUrl} 
-                    alt={event.title} 
-                    style={{ height: '200px', objectFit: 'cover' }} 
-                />
+        <Link to={`/event/${event.id}`} className="text-decoration-none">
+            <div className="card h-100 event-card border-0 shadow-sm">
+                <div className="position-relative event-image-container">
+                    <img 
+                        src={imageUrl} 
+                        alt={event.title}
+                        className="card-img-top event-card-image"
+                    />
+                    <div className="position-absolute top-0 start-0 m-3">
+                        <span className="badge event-type-badge d-flex align-items-center">
+                            <span className={`badge-indicator ${event.type.includes('Offline') ? 'bg-secondary' : 'bg-primary'}`}></span>
+                            <span className="badge-text">{event.type}</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div className="card-body p-4">
+                    <p className="text-muted mb-2 event-date-time">
+                        {moment(event.date).format('ddd MMM DD YYYY')} • {event.time}
+                    </p>
+                    <h5 className="event-title mb-0">
+                        {event.title}
+                    </h5>
+                </div>
             </div>
-            
-            <Card.Body>
-                <Badge bg={event.type.includes('Offline') ? 'secondary' : 'warning'} className="mb-2">
-                    {event.type}
-                </Badge>
-                <Card.Subtitle className="mb-2 text-muted small">
-                    {event.date} • {event.time}
-                </Card.Subtitle>
-                <Link to={`/events/${event.id}`} className="text-decoration-none">
-                    <Card.Title className="h5 text-dark">{event.title}</Card.Title>
-                </Link>
-            </Card.Body>
-            {/* Minimal footer for visual context */}
-            <Card.Footer className="bg-white border-0 pt-0">
-                <small className="text-muted">
-                    {event.isPaid ? `₹${event.price.toLocaleString()}` : 'Free'}
-                </small>
-            </Card.Footer>
-        </Card>
+        </Link>
     );
 };
 

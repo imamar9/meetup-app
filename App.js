@@ -1,10 +1,10 @@
-// src/App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import EventListings from './EventListings';
-import EventDetails from './EventDetails';
-import Header from './Header';
-import 'bootstrap/dist/css/bootstrap.min.css'; // For basic styling
+import EventListings from '.components/EventListings';
+import EventDetails from '.components/EventDetails';
+import Header from '.components/Header';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 function App() {
   return (
