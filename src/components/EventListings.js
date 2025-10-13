@@ -15,9 +15,11 @@ const EventListings = ({ searchTerm }) => {
     }
 
     const filteredEvents = allEvents.filter(event => {
-        if (eventType !== 'Both' && event.type !== eventType) {
-            return false;
-        }
+        const matchesType =
+            eventType === 'Both' ||
+            (event.type && event.type.toLowerCase().includes(eventType.toLowerCase()));
+        if (!matchesType) return false;
+
         const keyword = searchTerm.trim().toLowerCase();
         if (!keyword) return true;
         const inTitle = event.title && event.title.toLowerCase().includes(keyword);
