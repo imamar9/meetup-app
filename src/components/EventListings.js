@@ -5,6 +5,7 @@ import useFetch from '../hooks/useFetch';
 const EventListings = () => {
     const { data: allEvents, loading, error } = useFetch('/api/events', []);
     const [eventType, setEventType] = useState('Both');
+    const [searchTerm, setSearchTerm] = useState('');
 
     if (loading) {
         return <div className="container py-5"><p className="text-center">Loading events...</p></div>;
@@ -15,8 +16,13 @@ const EventListings = () => {
     }
 
     const filteredEvents = allEvents.filter(event => {
-        if (eventType === 'Both') return true;
-        return event.type.includes(eventType);
+        const matchesType = eventType === 'Both' || event.type.includes(eventType);
+        const lowerSearch = searchTerm.toLowerCase();
+        const matchesSearch =
+            event.title.toLowerCase().includes(lowerSearch) ||
+            event.description.toLowerCase().includes(lowerSearch) ||
+            (event.tags && event.tags.some(tag => tag.toLowerCase().includes(lowerSearch)));
+        return matchesType && (searchTerm === '' || matchesSearch);
     });
 
     return (
@@ -26,11 +32,19 @@ const EventListings = () => {
                     <h1 className="mb-0 fw-bold" style={{ fontSize: '2.5rem' }}>Meetup Events</h1>
                 </div>
                 <div className="col-auto">
+                    <input
+                        type="text"
+                        className="form-control mb-2"
+                        placeholder="Search events..."
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        style={{ minWidth: '220px' }}
+                    />
                     <select 
                         className="form-select event-type-select"
                         value={eventType} 
                         onChange={(e) => setEventType(e.target.value)}
-                        style={{ minWidth: '220px' }}
+                        style={{ minWidth: '220px', marginTop: '8px' }}
                     >
                         <option value="Both">Select Event Type</option>
                         <option value="Online">Online Event</option>
