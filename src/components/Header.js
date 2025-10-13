@@ -5,7 +5,7 @@ const Header = ({ setSearchTerm }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearchTerm(input); // just call prop to update searchTerm in App.js
+    setSearchTerm(input); 
   };
 
   return (

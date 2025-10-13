@@ -10,10 +10,8 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* Pass setSearchTerm to Header */}
         <Header setSearchTerm={setSearchTerm} />
         <Routes>
-          {/* Pass searchTerm to EventListings */}
           <Route path="/" element={<EventListings searchTerm={searchTerm} />} />
           <Route path="/event/:id" element={<EventDetails />} />
         </Routes>

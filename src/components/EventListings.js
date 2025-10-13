@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import EventCard from './EventCard';
 import useFetch from '../hooks/useFetch';
 
-// Accept searchTerm as a prop!
 const EventListings = ({ searchTerm }) => {
     const { data: allEvents, loading, error } = useFetch('/api/events', []);
     const [eventType, setEventType] = useState('Both');
@@ -15,13 +14,10 @@ const EventListings = ({ searchTerm }) => {
         return <div className="container py-5"><p className="text-center text-danger">Error: {error}</p></div>;
     }
 
-    // Filter by type and searchTerm together
     const filteredEvents = allEvents.filter(event => {
-        // Type filter
         if (eventType !== 'Both' && event.type !== eventType) {
             return false;
         }
-        // Search filter (case insensitive, in title or tags)
         const keyword = searchTerm.trim().toLowerCase();
         if (!keyword) return true;
         const inTitle = event.title && event.title.toLowerCase().includes(keyword);
