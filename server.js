@@ -28,3 +28,7 @@ if (process.env.VERCEL) {
     console.log(`Server running on port ${PORT}`);
   });
 }
+
+module.exports = (req, res) => {
+  app(req, res);
+};

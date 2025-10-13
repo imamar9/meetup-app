@@ -3,7 +3,7 @@ import EventCard from './EventCard';
 import useFetch from '../hooks/useFetch';
 
 const EventListings = () => {
-    const { data: allEvents, loading, error } = useFetch('http://localhost:5000/api/events', []);
+    const { data: allEvents, loading, error } = useFetch('/api/events', []);
     const [eventType, setEventType] = useState('Both');
 
     if (loading) {

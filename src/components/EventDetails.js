@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const EventDetails = () => {
     const { id } = useParams();
-    const { data: event, loading, error } = useFetch(`http://localhost:5000/api/events/${id}`, null);
+    const { data: event, loading, error } = useFetch(`/api/events/${id}`, null);
 
     if (loading) {
         return <h2 className="text-center mt-5">Loading event details...</h2>;
