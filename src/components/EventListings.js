@@ -15,17 +15,17 @@ const EventListings = ({ searchTerm }) => {
     }
 
     const filteredEvents = allEvents.filter(event => {
-        const matchesType =
-            eventType === 'Both' ||
-            (event.type && event.type.toLowerCase().includes(eventType.toLowerCase()));
-        if (!matchesType) return false;
+    const matchesType =
+        eventType === 'Both' ||
+        (event.type && event.type.toLowerCase() === eventType.toLowerCase());
+    if (!matchesType) return false;
 
-        const keyword = searchTerm.trim().toLowerCase();
-        if (!keyword) return true;
-        const inTitle = event.title && event.title.toLowerCase().includes(keyword);
-        const inTags = event.tags && event.tags.some(tag => tag.toLowerCase().includes(keyword));
-        return inTitle || inTags;
-    });
+    const keyword = searchTerm.trim().toLowerCase();
+    if (!keyword) return true;
+    const inTitle = event.title && event.title.toLowerCase().includes(keyword);
+    const inTags = event.tags && event.tags.some(tag => tag.toLowerCase().includes(keyword));
+    return inTitle || inTags;
+});
 
     return (
         <div className="container py-5">
