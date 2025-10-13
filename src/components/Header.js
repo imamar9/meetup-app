@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSearch = (e) => {
         e.preventDefault();
+        const params = new URLSearchParams(location.search);
         if (searchTerm.trim()) {
-            window.location.href = `/?search=${encodeURIComponent(searchTerm)}`;
+            params.set('search', searchTerm.trim());
         } else {
-            window.location.href = '/';
+            params.delete('search');
         }
+        navigate({ pathname: '/', search: params.toString() });
     };
 
     return (
