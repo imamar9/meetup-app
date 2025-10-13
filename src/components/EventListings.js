@@ -55,3 +55,5 @@ const EventListings = () => {
         </div>
     );
 };
+
+export default EventListings;
