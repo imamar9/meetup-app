@@ -14,15 +14,17 @@ const EventListings = ({ searchTerm }) => {
         return <div className="container py-5"><p className="text-center text-danger">Error: {error}</p></div>;
     }
 
-   const filteredEvents = allEvents.filter(event => {
+  const filteredEvents = allEvents.filter(event => {
     const normalizedType = eventType.replace(' Event', '').toLowerCase();
     const matchesType =
-        normalizedType === 'both' ||
-        (event.type && event.type.toLowerCase() === normalizedType);
+        normalizedType === 'Both' ||
+        (event.type && event.type.trim().toLowerCase() === normalizedType);
+
     if (!matchesType) return false;
 
     const keyword = searchTerm ? searchTerm.trim().toLowerCase() : '';
     if (!keyword) return true;
+
     const inTitle = event.title && event.title.toLowerCase().includes(keyword);
     const inTags = event.tags && event.tags.some(tag => tag.toLowerCase().includes(keyword));
     return inTitle || inTags;
