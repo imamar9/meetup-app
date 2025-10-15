@@ -35,7 +35,7 @@ const EventDetails = () => {
 
     return (
         <div className="container my-5">
-            <div className="row">
+            <div className="row g-lg-5">
                 {/* Main Content Left */}
                 <div className="col-lg-7">
                     <h1 className="mb-3 fw-bold">{title}</h1>
@@ -72,63 +72,59 @@ const EventDetails = () => {
                     </div>
                 </div>
 
-                {/* Sidebar Right */}
+                {/* Sidebar Right - Flex Row for Info/Speakers */}
                 <div className="col-lg-5">
-                    {/* Sticky Info Card ONLY */}
-                    <div className="card border-0 shadow-sm p-4 mb-4" style={{ position: 'sticky', top: '20px', zIndex: 2 }}>
-                        <div className="mb-3 pb-3 border-bottom">
-                            <div className="d-flex align-items-start mb-3">
-                                <i className="bi bi-clock me-3 fs-5"></i>
-                                <div>
-                                    <p className="mb-0">{eventDate} at {startTime} to</p>
-                                    <p className="mb-0">{eventDate} at {endTime}</p>
+                    <div className="d-flex flex-column gap-4">
+                        {/* Sticky Info Card */}
+                        <div className="card border-0 shadow-sm p-4 mb-0" style={{ position: 'sticky', top: '20px', zIndex: 2 }}>
+                            <div className="mb-3 pb-3 border-bottom">
+                                <div className="d-flex align-items-start mb-3">
+                                    <i className="bi bi-clock me-3 fs-5"></i>
+                                    <div>
+                                        <p className="mb-0">{eventDate} at {startTime} to</p>
+                                        <p className="mb-0">{eventDate} at {endTime}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="d-flex align-items-start mb-3">
-                                <i className="bi bi-geo-alt me-3 fs-5"></i>
-                                <div>
-                                    <p className="mb-0">{venue.split(',')[0]}</p>
-                                    <p className="mb-0">{venue.split(',')[1]}</p>
+                                <div className="d-flex align-items-start mb-3">
+                                    <i className="bi bi-geo-alt me-3 fs-5"></i>
+                                    <div>
+                                        <p className="mb-0">{venue.split(',')[0]}</p>
+                                        <p className="mb-0">{venue.split(',')[1]}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="d-flex align-items-center">
-                                <i className="bi bi-currency-rupee me-3 fs-5"></i>
-                                <p className="mb-0 fs-5">
-                                    {isPaid ? price.toLocaleString() : 'Free'}
-                                </p>
+                                <div className="d-flex align-items-center">
+                                    <i className="bi bi-currency-rupee me-3 fs-5"></i>
+                                    <p className="mb-0 fs-5">
+                                        {isPaid ? price.toLocaleString() : 'Free'}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Speakers (Non-sticky, scrolls as normal) */}
-                    <div className="mb-4">
-                        <h2 className="h5 fw-bold mb-3">Speakers: ({speakers.length})</h2>
-                        <div className="row g-3">
+                        {/* Flex row for speakers */}
+                        <div className="d-flex flex-row gap-3 justify-content-center mb-3">
                             {speakers.map((speaker, index) => (
-                                <div className="col-6" key={index}>
-                                    <div className="card text-center border-0 shadow-sm p-3">
-                                        <div className="mx-auto mb-2">
-                                            <img
-                                                src={speaker.image || `https://i.pravatar.cc/150?img=${index + 1}`}
-                                                alt={speaker.name}
-                                                className="rounded-circle"
-                                                style={{ width: '80px', height: '80px', objectFit: 'cover' }}
-                                            />
-                                        </div>
-                                        <h6 className="mb-1 fw-bold">{speaker.name}</h6>
-                                        <p className="mb-0">{speaker.title}</p>
+                                <div key={index} className="card text-center border-0 shadow-sm p-3" style={{ minWidth: 220 }}>
+                                    <div className="mx-auto mb-2">
+                                        <img
+                                            src={speaker.image || `https://i.pravatar.cc/150?img=${index + 1}`}
+                                            alt={speaker.name}
+                                            className="rounded-circle"
+                                            style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+                                        />
                                     </div>
+                                    <h6 className="mb-1 fw-bold">{speaker.name}</h6>
+                                    <p className="mb-0">{speaker.title}</p>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                    {/* RSVP button */}
-                    <div className='justify-content-center d-flex'>
-                        <button
-                            className="btn btn-danger w-50 rounded"
-                        >
-                            RSVP
-                        </button>
+                        <div className='justify-content-center d-flex'>
+                            <button
+                                className="btn btn-danger w-50 rounded"
+                            >
+                                RSVP
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
