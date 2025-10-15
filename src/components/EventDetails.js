@@ -6,24 +6,14 @@ const EventDetails = () => {
     const { id } = useParams();
     const { data: event, loading, error } = useFetch(`/api/events/${id}`, null);
 
-    if (loading) {
-        return <h2 className="text-center mt-5">Loading event details...</h2>;
-    }
-
-    if (error) {
-        return <h2 className="text-center mt-5 text-danger">Error: {error}</h2>;
-    }
-
-    if (!event) {
-        return <h2 className="text-center mt-5">Event not found</h2>;
-    }
+    if (loading) return <h2 className="text-center mt-5">Loading event details...</h2>;
+    if (error) return <h2 className="text-center mt-5 text-danger">Error: {error}</h2>;
+    if (!event) return <h2 className="text-center mt-5">Event not found</h2>;
 
     const {
         title, hostedBy, image, description, additionalInfo, tags, isPaid, price,
         venue, sessionTiming, speakers = []
     } = event;
-
-    const imageUrl = image;
 
     const timingParts = sessionTiming.split(' to ');
     const startPart = timingParts[0];
@@ -45,7 +35,7 @@ const EventDetails = () => {
                     </p>
                     <div className="card mb-4 border-0 shadow-sm">
                         <img
-                            src={imageUrl}
+                            src={image}
                             alt={title}
                             className="card-img-top"
                             style={{ maxHeight: '400px', objectFit: 'cover' }}
@@ -64,9 +54,7 @@ const EventDetails = () => {
                         <h3 className="h5 fw-bold mb-3">Event Tags:</h3>
                         <div className="d-flex flex-wrap gap-2">
                             {tags.map(tag => (
-                                <span key={tag} className="badge bg-danger px-3 py-2 rounded">
-                                    {tag}
-                                </span>
+                                <span key={tag} className="badge bg-danger px-3 py-2 rounded">{tag}</span>
                             ))}
                         </div>
                     </div>
@@ -77,7 +65,7 @@ const EventDetails = () => {
                     {/* Sticky Info Card ONLY */}
                     <div 
                         className="card border-0 shadow-sm p-4 mb-4"
-                        style={{ position: 'sticky', top: '20px', zIndex: 2 }}
+                        style={{ position: 'sticky', top: '20px', zIndex: 2, background: "white"}}
                     >
                         <div className="mb-3 pb-3 border-bottom">
                             <div className="d-flex align-items-start mb-3">
@@ -103,11 +91,13 @@ const EventDetails = () => {
                         </div>
                     </div>
 
-                    {/* Speakers Header and Row (NOT sticky, sibling to sticky card) */}
+                    {/* Speakers and RSVP - not inside sticky, rendered after */}
                     <div>
-                        <h2 className="h5 fw-bold mb-3">
-                            Speakers: ({speakers.length})
-                        </h2>
+                        <div className="mb-2 mt-2">
+                            <h2 className="h5 fw-bold mb-3 text-center">
+                                Speakers: ({speakers.length})
+                            </h2>
+                        </div>
                         <div className="d-flex flex-row gap-3 justify-content-center mb-4">
                             {speakers.map((speaker, index) => (
                                 <div key={index} className="card text-center border-0 shadow-sm p-3" style={{ minWidth: 220 }}>
@@ -126,9 +116,7 @@ const EventDetails = () => {
                         </div>
                         {/* RSVP Button */}
                         <div className='justify-content-center d-flex mb-4'>
-                            <button
-                                className="btn btn-danger w-50 rounded"
-                            >
+                            <button className="btn btn-danger w-50 rounded">
                                 RSVP
                             </button>
                         </div>
