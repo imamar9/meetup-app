@@ -62,7 +62,6 @@ const EventDetails = () => {
             {speakers.map((speaker, index) => (
                 <div key={index}
                     className="card border-0 shadow-sm p-3"
-                    style={{ minWidth: 220, marginRight: index !== speakers.length - 1 ? '20px' : '0' }}
                 >
                     <div className="mx-auto mb-2">
                         <img
