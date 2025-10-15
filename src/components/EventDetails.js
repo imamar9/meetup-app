@@ -88,26 +88,24 @@ const EventDetails = () => {
                         </div>
                     </div>
                     {/* Speakers Heading and Cards */}
-                    <div>
-                        <h2 className="h5 fw-bold mb-3 text-center">
-                            Speakers: ({speakers.length})
-                        </h2>
-                        <div className="d-flex flex-row gap-3 justify-content-center mb-4">
-                            {speakers.map((speaker, index) => (
-                                <div key={index} className="card text-center border-0 shadow-sm p-3" style={{ minWidth: 220 }}>
-                                    <div className="mx-auto mb-2">
-                                        <img
-                                            src={speaker.image || `https://i.pravatar.cc/150?img=${index + 1}`}
-                                            alt={speaker.name}
-                                            className="rounded-circle"
-                                            style={{ width: '80px', height: '80px', objectFit: 'cover' }}
-                                        />
-                                    </div>
-                                    <h6 className="mb-1 fw-bold">{speaker.name}</h6>
-                                    <p className="mb-0">{speaker.title}</p>
-                                </div>
-                            ))}
-                        </div>
+                    <div style={{ position: "relative", zIndex: 0 }}>
+    <h2 className="h5 fw-bold mb-3 text-center">Speakers: ({speakers.length})</h2>
+    <div className="d-flex flex-row gap-3 justify-content-center mb-4 flex-wrap">
+      {speakers.map((speaker, index) => (
+        <div key={index} className="card text-center border-0 shadow-sm p-3" style={{ minWidth: 220 }}>
+          <div className="mx-auto mb-2">
+            <img
+              src={speaker.image || `https://i.pravatar.cc/150?img=${index + 1}`}
+              alt={speaker.name}
+              className="rounded-circle"
+              style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+            />
+          </div>
+          <h6 className="mb-1 fw-bold">{speaker.name}</h6>
+          <p className="mb-0">{speaker.title}</p>
+        </div>
+      ))}
+    </div>
                         {/* RSVP Button */}
                         <div className='justify-content-center d-flex mb-4'>
                             <button className="btn btn-danger w-50 rounded">
