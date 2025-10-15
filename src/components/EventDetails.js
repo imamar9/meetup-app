@@ -60,13 +60,10 @@ const EventDetails = () => {
                     </div>
                 </div>
 
-                {/* Sidebar Right */}
+                {/* Sidebar Right (NO sticky!) */}
                 <div className="col-lg-5">
-                    {/* Sticky Info Card ONLY */}
-                    <div 
-                        className="card border-0 shadow-sm p-4 mb-4"
-                        style={{ position: 'sticky', top: '20px', zIndex: 2, background: "white"}}
-                    >
+                    {/* Calendar/info card */}
+                    <div className="card border-0 shadow-sm p-4 mb-4">
                         <div className="mb-3 pb-3 border-bottom">
                             <div className="d-flex align-items-start mb-3">
                                 <i className="bi bi-clock me-3 fs-5"></i>
@@ -90,14 +87,11 @@ const EventDetails = () => {
                             </div>
                         </div>
                     </div>
-
-                    {/* Speakers and RSVP - not inside sticky, rendered after */}
+                    {/* Speakers Heading and Cards */}
                     <div>
-                        <div className="mb-2 mt-2">
-                            <h2 className="h5 fw-bold mb-3">
-                                Speakers: ({speakers.length})
-                            </h2>
-                        </div>
+                        <h2 className="h5 fw-bold mb-3 text-center">
+                            Speakers: ({speakers.length})
+                        </h2>
                         <div className="d-flex flex-row gap-3 justify-content-center mb-4">
                             {speakers.map((speaker, index) => (
                                 <div key={index} className="card text-center border-0 shadow-sm p-3" style={{ minWidth: 220 }}>
@@ -127,4 +121,4 @@ const EventDetails = () => {
     );
 };
 
-export default EventDetails; 
+export default EventDetails;
