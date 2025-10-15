@@ -19,6 +19,9 @@ const filteredEvents = allEvents.filter(event => {
         eventType === 'Both' ||
         (event.type && event.type.trim().toLowerCase() === eventType.toLowerCase());
 
+    console.log(event.type, eventType);
+
+
     if (!matchesType) return false;
 
     const keyword = searchTerm ? searchTerm.trim().toLowerCase() : '';
@@ -44,9 +47,10 @@ const filteredEvents = allEvents.filter(event => {
                         style={{ minWidth: '220px' }}
                     >
                         <option value="Both">Select Event Type</option>
-                        <option value="Online">Online Event</option>
-                        <option value="Offline">Offline Event</option>
+                        <option value="Online Event">Online Event</option>
+                        <option value="Offline Event">Offline Event</option>
                     </select>
+
                 </div>
             </div>
 
