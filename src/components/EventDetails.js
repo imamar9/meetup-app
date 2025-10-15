@@ -94,7 +94,7 @@ const EventDetails = () => {
                     {/* Speakers and RSVP - not inside sticky, rendered after */}
                     <div>
                         <div className="mb-2 mt-2">
-                            <h2 className="h5 fw-bold mb-3 text-center">
+                            <h2 className="h5 fw-bold mb-3">
                                 Speakers: ({speakers.length})
                             </h2>
                         </div>
@@ -127,4 +127,4 @@ const EventDetails = () => {
     );
 };
 
-export default EventDetails;
+export default EventDetails; 
