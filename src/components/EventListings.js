@@ -14,12 +14,10 @@ const EventListings = ({ searchTerm }) => {
         return <div className="container py-5"><p className="text-center text-danger">Error: {error}</p></div>;
     }
 
-  const filteredEvents = allEvents.filter(event => {
-    // Normalize dropdown value to either 'online', 'offline', or 'both'
-    const normalizedType = eventType.replace(' Event', '').toLowerCase();
+const filteredEvents = allEvents.filter(event => {
     const matchesType =
-        normalizedType === 'both' ||
-        (event.type && event.type.trim().toLowerCase() === normalizedType);
+        eventType === 'Both' ||
+        (event.type && event.type.trim().toLowerCase() === eventType.toLowerCase());
 
     if (!matchesType) return false;
 
