@@ -61,7 +61,7 @@ const EventDetails = () => {
         <div className="d-flex flex-row gap-4 mb-4" style={{ justifyContent: 'flex-start' }}>
             {speakers.map((speaker, index) => (
                 <div key={index}
-                    className="card text-center border-0 shadow-sm p-3"
+                    className="card border-0 shadow-sm p-3"
                     style={{ minWidth: 220, marginRight: index !== speakers.length - 1 ? '20px' : '0' }}
                 >
                     <div className="mx-auto mb-2">
