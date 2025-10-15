@@ -54,7 +54,7 @@ const EventDetails = () => {
 
     {/* Speakers Section */}
     <div style={{ position: "relative" }}>
-        <h2 className="fw-bold mb-3" style={{ fontSize: '2rem', textAlign: 'center'}}>
+        <h2 className="fw-bold mb-3 ms-4" style={{}}>
             Speakers: ({speakers.length})
         </h2>
 
