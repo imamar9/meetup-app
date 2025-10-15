@@ -15,6 +15,7 @@ const EventListings = ({ searchTerm }) => {
     }
 
   const filteredEvents = allEvents.filter(event => {
+    // Normalize dropdown value to either 'online', 'offline', or 'both'
     const normalizedType = eventType.replace(' Event', '').toLowerCase();
     const matchesType =
         normalizedType === 'both' ||
