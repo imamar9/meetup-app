@@ -58,7 +58,7 @@ const EventDetails = () => {
             Speakers: ({speakers.length})
         </h2>
 
-        <div className="d-flex flex-row gap-4 mb-4" style={{ justifyContent: 'flex-start' }}>
+        <div className="d-flex flex-row gap-4 mb-4">
             {speakers.map((speaker, index) => (
                 <div key={index}
                     className="card border-0 shadow-sm p-3"
