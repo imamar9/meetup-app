@@ -53,7 +53,7 @@ const EventDetails = () => {
     </div>
 
     {/* Speakers Section */}
-    <div style={{ position: "relative" }}>
+    <div style={{}}>
         <h2 className="fw-bold mb-3 ms-4" style={{}}>
             Speakers: ({speakers.length})
         </h2>
