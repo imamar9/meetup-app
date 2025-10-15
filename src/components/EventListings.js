@@ -17,7 +17,7 @@ const EventListings = ({ searchTerm }) => {
   const filteredEvents = allEvents.filter(event => {
     const normalizedType = eventType.replace(' Event', '').toLowerCase();
     const matchesType =
-        normalizedType === 'Both' ||
+        normalizedType === 'both' ||
         (event.type && event.type.trim().toLowerCase() === normalizedType);
 
     if (!matchesType) return false;
