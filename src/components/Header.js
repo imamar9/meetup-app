@@ -3,6 +3,11 @@ import React, { useState } from 'react';
 const Header = ({ setSearchTerm }) => {
   const [input, setInput] = useState('');
 
+  const handleInput = (e) => {
+    setInput(e.target.value);
+    setSearchTerm(e.target.value); 
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchTerm(input); 
@@ -24,7 +29,7 @@ const Header = ({ setSearchTerm }) => {
               className="form-control border-start-0"
               placeholder="Search by title and tags..."
               value={input}
-              onChange={e => setInput(e.target.value)}
+              onChange={handleInput}
             />
           </div>
         </form>
