@@ -20,7 +20,7 @@ const EventDetails = () => {
 
     const {
         title, hostedBy, image, description, additionalInfo, tags, isPaid, price,
-        venue, sessionTiming, speakers
+        venue, sessionTiming, speakers = []
     } = event;
 
     const imageUrl = image;
@@ -35,7 +35,7 @@ const EventDetails = () => {
 
     return (
         <div className="container my-5">
-            <div className="row g-lg-5">
+            <div className="row g-lg-5 align-items-start">
                 {/* Main Content Left */}
                 <div className="col-lg-7">
                     <h1 className="mb-3 fw-bold">{title}</h1>
@@ -74,7 +74,7 @@ const EventDetails = () => {
 
                 {/* Sidebar Right */}
                 <div className="col-lg-5">
-                    {/* Sticky Info Card Only */}
+                    {/* Sticky Info Card ONLY */}
                     <div 
                         className="card border-0 shadow-sm p-4 mb-4"
                         style={{ position: 'sticky', top: '20px', zIndex: 2 }}
@@ -103,30 +103,35 @@ const EventDetails = () => {
                         </div>
                     </div>
 
-                    {/* Speakers (scroll naturally below sticky card) */}
-                    <div className="d-flex flex-row gap-3 justify-content-center mb-4">
-                        {speakers.map((speaker, index) => (
-                            <div key={index} className="card text-center border-0 shadow-sm p-3" style={{ minWidth: 220 }}>
-                                <div className="mx-auto mb-2">
-                                    <img
-                                        src={speaker.image || `https://i.pravatar.cc/150?img=${index + 1}`}
-                                        alt={speaker.name}
-                                        className="rounded-circle"
-                                        style={{ width: '80px', height: '80px', objectFit: 'cover' }}
-                                    />
+                    {/* Speakers Header and Row (NOT sticky, sibling to sticky card) */}
+                    <div>
+                        <h2 className="h5 fw-bold mb-3">
+                            Speakers: ({speakers.length})
+                        </h2>
+                        <div className="d-flex flex-row gap-3 justify-content-center mb-4">
+                            {speakers.map((speaker, index) => (
+                                <div key={index} className="card text-center border-0 shadow-sm p-3" style={{ minWidth: 220 }}>
+                                    <div className="mx-auto mb-2">
+                                        <img
+                                            src={speaker.image || `https://i.pravatar.cc/150?img=${index + 1}`}
+                                            alt={speaker.name}
+                                            className="rounded-circle"
+                                            style={{ width: '80px', height: '80px', objectFit: 'cover' }}
+                                        />
+                                    </div>
+                                    <h6 className="mb-1 fw-bold">{speaker.name}</h6>
+                                    <p className="mb-0">{speaker.title}</p>
                                 </div>
-                                <h6 className="mb-1 fw-bold">{speaker.name}</h6>
-                                <p className="mb-0">{speaker.title}</p>
-                            </div>
-                        ))}
-                    </div>
-                    {/* RSVP Button */}
-                    <div className='justify-content-center d-flex mb-4'>
-                        <button
-                            className="btn btn-danger w-50 rounded"
-                        >
-                            RSVP
-                        </button>
+                            ))}
+                        </div>
+                        {/* RSVP Button */}
+                        <div className='justify-content-center d-flex mb-4'>
+                            <button
+                                className="btn btn-danger w-50 rounded"
+                            >
+                                RSVP
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
