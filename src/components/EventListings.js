@@ -17,11 +17,7 @@ const EventListings = ({ searchTerm }) => {
 const filteredEvents = allEvents.filter(event => {
     const matchesType =
         eventType === 'Both' ||
-        (event.type && event.type.trim().toLowerCase() === eventType.toLowerCase());
-
-    console.log(event.type, eventType);
-
-
+        (event.type && event.type === eventType);
     if (!matchesType) return false;
 
     const keyword = searchTerm ? searchTerm.trim().toLowerCase() : '';
@@ -31,6 +27,7 @@ const filteredEvents = allEvents.filter(event => {
     const inTags = event.tags && event.tags.some(tag => tag.toLowerCase().includes(keyword));
     return inTitle || inTags;
 });
+
 
 
     return (
